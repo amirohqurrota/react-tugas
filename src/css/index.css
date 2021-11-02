@@ -1,0 +1,43 @@
+body{
+    font-family: 'Roboto', sans-serif; 
+    background-image: url(../image/bg-img.png);
+    background-size:cover;
+    color: rgba(25, 52, 94);
+}
+
+.navbar-light{
+    color:#19345E !important;
+}
+
+.nav-link{
+    color:#19345E !important;
+}
+
+a:hover {
+    color: rgba(244, 117, 34, 1) !important;
+}
+
+button:hover{
+    color: rgba(244, 117, 34, 1) !important;
+    background-color:#19345E !important ;
+
+}
+
+button{
+    background-color: #F47522 !important; 
+    border: none !important;
+}
+
+.active{
+    color: rgba(244, 117, 34, 1) !important;
+    font-weight: bolder;
+}
+.photo-content{
+    width: 355px;
+    height: 355px;
+    background-image: url(../image/matthew-hamilton-tNCH0sKSZbA-unsplash.jpg); 
+    background-size:cover;
+    color: none;
+    padding-left: 80px;
+    padding-right: 80px
+}

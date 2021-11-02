@@ -1,0 +1,34 @@
+body{
+    padding: 4rem;
+    margin: 0;
+    color: rgb(43, 60, 88) !important;
+    font-family: 'Roboto', sans-serif;
+}
+td{
+    color: rgb(43, 60, 88) !important;
+    text-align: left !important;
+    vertical-align: center;
+    padding: 0px !important;
+}
+
+.label{
+    width: 25%;
+}
+table {
+    empty-cells: show !important;
+}
+.tabel{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+button{
+    background-color: #F47522 !important; 
+    color: #ffff !important;
+}
+
+.line{
+    border-bottom: 0.09rem solid rgba(204, 215, 235, 1) !important;
+    height: 3rem ;
+}
