@@ -1,0 +1,16 @@
+.box{
+    padding: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius:20px;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+    max-width:max-content;
+    margin-top: 15px;
+}
+
+.oneList{
+    margin: 0px;
+    
+}
