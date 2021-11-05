@@ -1,0 +1,93 @@
+.container{
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.containerApp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    /* background-color: red; */
+    height: 100vh;
+
+}
+h1 {
+    font-size: 5em;
+    margin: 0;
+    margin-bottom: 0.5em;
+    padding: 0;
+    background: #F5E618;
+    background: -webkit-linear-gradient(to right, #F5E618 0%, #1E63D9 100%);
+    background: -moz-linear-gradient(to right, #F5E618 0%, #1E63D9 100%);
+    background: linear-gradient(to right, #F5E618 0%, #1E63D9 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.buttonInput{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.inputArea{
+    width: 50vw;
+}
+
+.teksInput{
+    width: 100%;
+    height: 100%;
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.containerInput{
+    padding: 0.5em;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.37);
+    border-radius: 2em;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.53);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.253);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.253);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+table, .containerTable{
+    width: 100%;
+}
+
+.containerTable{
+    margin-top: 2em;
+}
+.tdButton{
+    text-align: right;
+    font-size: small;
+}
+
+.tdButton > button{
+    border-radius: 50%;
+    width: 3.5em;
+    height: 3.5em ;
+    border: 1px;
+}
+
+.tdButton > button>p{
+    font-size: small;
+}
