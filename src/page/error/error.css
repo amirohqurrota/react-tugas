@@ -1,0 +1,29 @@
+.error-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3em;
+}
+
+.container-image-error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50vh;
+    width: 40%;
+}
+
+.imgErr{
+    height: 100%;
+    width: auto;
+}
+.buttonErr{
+    margin-top: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    background-color: rgb(0, 119, 255);
+    border-style: none;
+    color: white;
+}
