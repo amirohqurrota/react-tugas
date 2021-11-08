@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import ListTodo from '../../component/ListTodo';
 import ListInput from '../../component/InputTodo';
 import { useState } from 'react';
-import './home.css'
 import Nav from '../../component/nav';
 const initialValue=[
     {
@@ -25,7 +24,7 @@ const initialValue=[
 ]
 
 
-function Home (){
+function About (){
     const [data, setData] = useState(initialValue);
     console.log(data)
     const deleteTodo=(id)=>{
@@ -53,6 +52,7 @@ function Home (){
 
     return(
         <div className='container'>
+            <Nav/>
             <h1>todos</h1>
             <div className="inputArea">
                 <ListInput addTodo={addTodo}/>
@@ -63,4 +63,4 @@ function Home (){
     )
 }
 
-export default Home
+export default About
