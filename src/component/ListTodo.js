@@ -4,7 +4,7 @@ import { deleteTodo, updateTodo } from "../store/TodoSlice";
 
 const ListTodo = () =>{
     const todoItem= useSelector((state)=> state.todoData.todoDatas)
-    // console.log(todoItem)
+    console.log("todo state:",todoItem)
     const dispatch=useDispatch()
     // const {data, deleteTodo, updateTodo, addTodo} =props
 

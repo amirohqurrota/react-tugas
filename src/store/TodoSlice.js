@@ -24,10 +24,12 @@ const initialValue = [
     },
 ];
 
+
+
 export const TodoSlice = createSlice({
     name: "todoData",
     initialState:{
-        todoDatas: initialValue
+        todoDatas: "initialValue"
     },
     reducers: {
         deleteTodo: (state, action)=>{
@@ -49,6 +51,7 @@ export const TodoSlice = createSlice({
             state.todoDatas=updatedData
         },
     },
+    
 })
 
 export const {deleteTodo, addTodo, updateTodo}= TodoSlice.actions;
