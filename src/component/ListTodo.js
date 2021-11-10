@@ -2,8 +2,9 @@ import ItemToDo from "./ItemToDo"
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTodo, updateTodo } from "../store/TodoSlice";
 
-const ListTodo = (props) =>{
+const ListTodo = () =>{
     const todoItem= useSelector((state)=> state.todoData.todoDatas)
+    // console.log(todoItem)
     const dispatch=useDispatch()
     // const {data, deleteTodo, updateTodo, addTodo} =props
 

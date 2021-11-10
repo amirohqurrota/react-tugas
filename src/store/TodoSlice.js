@@ -24,12 +24,12 @@ const initialValue = [
     },
 ];
 
-export const todoSlice =createSlice({
+export const TodoSlice = createSlice({
     name: "todoData",
     initialState:{
         todoDatas: initialValue
     },
-    reducers:{
+    reducers: {
         deleteTodo: (state, action)=>{
             state.todoDatas=state.todoDatas.filter((item) => {
                 return item.id !== action.payload;
@@ -47,9 +47,9 @@ export const todoSlice =createSlice({
             let updatedData = [...state.todoDatas]
             updatedData[index].completed=!updatedData[index].completed
             state.todoDatas=updatedData
-        }
-    }
+        },
+    },
 })
 
-export const {deleteTodo, addTodo, updateTodo}= todoSlice.actions;
-export default todoSlice.reducer
+export const {deleteTodo, addTodo, updateTodo}= TodoSlice.actions;
+export default TodoSlice.reducer;

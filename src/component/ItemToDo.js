@@ -2,11 +2,10 @@ import {deleteTodo, updateTodo} from "../store/TodoSlice"
 import { useDispatch } from "react-redux"
 
 function ItemTodo (props){
+    console.log(props.item)
     let title
     const dispatch = useDispatch()
-    const deleteData= () => {
-        props.deleteTodo(props.item.id)}
-
+    console.log(props.item)
     if (props.item.completed) {
         title = <del>{props.item.title}</del>
         
@@ -16,9 +15,9 @@ function ItemTodo (props){
 
     return(
         <tr>
-            <td><input type="checkbox" name="isCompleted" defaultChecked={props.item.completed} onChange={() => dispatch(updateTodo(props.item.id))}/></td>
+            <td><input type="checkbox" name="isCompleted" defaultChecked={props.item.completed} onChange={props.item.id}/></td>
             <td>{title}</td>
-            <td className="tdButton"><button onClick={() => dispatch(deleteTodo)}>Hapus</button></td>
+            <td className="tdButton"><button onClick={() => dispatch(props.deleteTodo(props.item.id))}>Hapus</button></td>
         </tr>
     )
 }
