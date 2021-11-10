@@ -9,32 +9,33 @@ import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/integration/react"
 import {store, persistor} from './store/Store'
 
+function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+          <Routes>
+            <Route path="/" index element={<Home/>}/>
+            <Route path="/about" index element={<About/>}/>
+            <Route path="/about/about-app" index element={<AboutApp/>}/>
+            <Route path="/about/about-author" index element={<AboutAuthor/>}/>
+            <Route  path="*" element={<Error/>}></Route>
+          </Routes>
+      </PersistGate>
+    </Provider>
+  );
+}
 
 // function App() {
 //   return (
 //     <Provider store={store}>
 //       <PersistGate loading={null} persistor={persistor}>
-//           <Routes>
-//             <Route path="/" index element={<Home/>}/>
-//             <Route path="/about" index element={<About/>}/>
-//             <Route path="/about/about-app" index element={<AboutApp/>}/>
-//             <Route path="/about/about-author" index element={<AboutAuthor/>}/>
-//             <Route  path="*" element={<Error/>}></Route>
-//           </Routes>
+//         <Router basename={process.env.PUBLIC_URL}>
+//           <Home />
+//         </Router>
 //       </PersistGate>
 //     </Provider>
 //   );
 // }
-
-function App() {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-          <Home/>
-      </PersistGate>
-    </Provider>
-  );
-}
 
 
 export default App;

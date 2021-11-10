@@ -27,11 +27,11 @@ const initialValue = [
 export const todoSlice =createSlice({
     name: "todoData",
     initialState:{
-        todoList: initialValue
+        todoDatas: initialValue
     },
     reducers:{
         deleteTodo: (state, action)=>{
-            state.todoList=state.todoList.filter((item) => {
+            state.todoDatas=state.todoDatas.filter((item) => {
                 return item.id !== action.payload;
             })
         },
@@ -40,16 +40,16 @@ export const todoSlice =createSlice({
                 id: uuidv4(),
                 ...action.payload,
             };
-            state.todoList= [...state.todoList, newData]
+            state.todoDatas= [...state.todoDatas, newData]
         },
         updateTodo: (state, action)=>{
-            let index = state.todoList.findIndex(item => item.id === action.payload)
-            let updatedData = [...state.todoList]
+            let index = state.todoDatas.findIndex(item => item.id === action.payload)
+            let updatedData = [...state.todoDatas]
             updatedData[index].completed=!updatedData[index].completed
-            state.todoList=updatedData
+            state.todoDatas=updatedData
         }
     }
 })
 
 export const {deleteTodo, addTodo, updateTodo}= todoSlice.actions;
-export default todoSlice.actions
+export default todoSlice.reducer

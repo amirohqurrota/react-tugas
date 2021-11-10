@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteTodo, updateTodo } from "../store/TodoSlice";
 
 const ListTodo = (props) =>{
-    const todoItem= useSelector((state)=> state.todoData.todoList)
+    const todoItem= useSelector((state)=> state.todoData.todoDatas)
     const dispatch=useDispatch()
     // const {data, deleteTodo, updateTodo, addTodo} =props
 
     return(
         <div className="containerTable">
             <table>
-                {data.map((todo)=>( <ItemToDo item={todoItem} deleteTodo={dispatch(deleteTodo(todoItem.id))} updateTodo={dispatch(updateTodo)} /> ))}
+                {todoItem.map((todo)=>( <ItemToDo item={todo} deleteTodo={dispatch(deleteTodo(todo.id))} updateTodo={dispatch(updateTodo)} /> ))}
             </table>
         </div>
     )
