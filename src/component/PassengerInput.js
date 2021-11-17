@@ -5,7 +5,7 @@ function PassengerInput(props) {
   const [state, setState] = useState({
     nama: "",
     umur: "",
-    jenisKelamin: "Pria",
+    jenisKelamin: "pria",
     editing: true,
   })
 
@@ -22,6 +22,7 @@ function PassengerInput(props) {
       if (umur >= 75 || umur <= 12) {
         alert("Umur tidak sesuai")
       } else {
+        console.log("value of state : ", state.nama)
         const newData = {
           nama: state.nama,
           umur: state.umur,
@@ -32,7 +33,7 @@ function PassengerInput(props) {
           ...state,
           nama: "",
           umur: "",
-          jenisKelamin: "Pria",
+          jenisKelamin: "pria",
         })
       }
     } else {
@@ -72,10 +73,10 @@ function PassengerInput(props) {
         <input type="number" className="input-text" placeholder="Umur anda ..." value={state.umur} name="umur" onChange={onChange} />
         <p>Masukkan Jenis Kelamin Anda</p>
         <select onChange={onChange} name="jenisKelamin">
-          <option value="Pria" selected>
-            Pria
+          <option value="pria" selected>
+            pria
           </option>
-          <option value="Wanita">Wanita</option>
+          <option value="wanita">wanita</option>
         </select>
         <p></p>
         <button onClick={handleSubmit}>Submit</button>

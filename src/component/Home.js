@@ -3,7 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 import PassengerInput from './PassengerInput';
 import ListPassenger from './ListPassenger';
 import Header from './Header';
-import {gql, useQuery, useLazyQuery} from "@apollo/client";
+import {gql, useMutation, useLazyQuery} from "@apollo/client";
+import Loader from "react-loader-spinner";
+import GetPassengerBy from "./GetPassengerBy";
 
 const GetAllPassenger=gql`
 query MyQuery {
@@ -15,86 +17,91 @@ query MyQuery {
     }
   }`
 
-const listData = [
-    {
-        id: uuidv4(),
-        nama: 'Yoga',
-        umur: 22,
-        jenisKelamin: 'Pria'
-    },
-    {
-        id: uuidv4(),
-        nama: 'Ria',
-        umur: 19,
-        jenisKelamin: 'Wanita'
-    },
-    {
-        id: uuidv4(),
-        nama: 'Fahmi',
-        umur: 25,
-        jenisKelamin: 'Pria'
-    },
-    {
-        id: uuidv4(),
-        nama: 'Lala',
-        umur: 21,
-        jenisKelamin: 'Wanita'
-    },
-    {
-        id: uuidv4(),
-        nama: 'Ivan',
-        umur: 25,
-        jenisKelamin: 'Pria'
+const DeleteById=gql`
+mutation MyMutation($id: Int!) {
+    delete_passenger_by_pk(id: $id) {
+    nama
+    umur
     }
-    ]
+}  
+`
+const AddData=gql`
+mutation MyMutation2($object: passenger_insert_input = {}) {
+    insert_passenger_one(object: $object){
+      nama
+    }
+  }
+`
+
+const GetDataById=gql`
+query MyQuery($id: Int!) {
+    passenger(where: {id: {_eq: $id}}) {
+      id
+    }
+  }
+
+`
 
 function Home(){
-    //const [getData,{data, loading, error}]=useLazyQuery(GetAllPassenger);
-    const {data, loading, error}=useQuery(GetAllPassenger);
-    const [listPassenger, setListPassenger] = useState([]);
+    const [getData,{data, loading, error}]=useLazyQuery(GetAllPassenger);
+    const [seacrhDataById,{singleData, load, err}]=useLazyQuery(GetDataById);
+    const [deletePassenger] = useMutation(DeleteById, { refetchQueries: [GetAllPassenger] })
+    const [AddNewData] = useMutation(AddData, { refetchQueries: [GetAllPassenger] })
+    //const [listPassenger, setListPassenger] = useState([]);
 
-    // useEffect(() => {
-    //     getData()
-    //     setListPassenger(data?.passenger)
-    //     console.log("useEffect runnig", listPassenger)
-    // }, [])
+    useEffect(() => {
+        getData()
+        // setListPassenger(data?.passenger)
+        // console.log("useEffect runnig", listPassenger)
+    }, [])
 
     
     if (loading){
-        console.log("loading...")
+        return <Loader type="ThreeDots" height={100} width={100} />
     }
     if (error){
         console.log("error : ",error)
         return null
     }
     
-    const hapusPengunjung = id => {
-        const newData=[...data.passenger.filter((item)=>{
-            return item.id !== id;
-        })]
-        data=newData
+    const hapusPengunjung = (id) => {
+        deletePassenger({
+            variables:{
+                id
+            }
+        })
     }
-    
-    
-    // const tambahPengunjung = newUser => {
-    //     const newData = {
-    //         id: uuidv4(),
-    //         ...newUser
-    //     }; 
-    //     setData([...data,newData])
-    // };
+    const tambahPengunjung = newUser => {
+        const newData = {
+            id: uuidv4(),
+            ...newUser
+        }; 
+        AddNewData({
+            variables:{
+                newData
+            }
+        })
+    };
+
+    const cariPengunjung=(id)=>{
+        seacrhDataById({
+            variables:{
+                id
+            }
+        })
+        return singleData
+    }
     console.log("listt: ", data?.passenger)
     return (
         <div>
             <Header/>
             {/* <h1>{ListPassenger}</h1> */}
-            <p>{JSON.stringify(data?.passenger)}</p>
-            <ListPassenger 
-                allData={data?.passenger}
-                // hapusPengunjung={hapusPengunjung}
-            />
+            {/* <p>{JSON.stringify(data?.passenger)}</p> */}
+            <GetPassengerBy cariPengunjung={cariPengunjung}/>
+            {loading ? <Loader type="ThreeDots" height={100} width={100} /> : <ListPassenger data={data?.passenger} hapusPengunjung={hapusPengunjung}/>
+            }
             <PassengerInput
-                // tambahPengunjung={tambahPengunjung}
+                tambahPengunjung={tambahPengunjung}
             />
         </div>
         )
