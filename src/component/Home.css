@@ -9,3 +9,11 @@ tr,td {
 .inputan {
     margin-top: 25px;
 }
+
+.editDisplayFalse{
+    display: none;
+}
+
+.editDisplayTrue{
+    display:block;
+}

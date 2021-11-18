@@ -28,33 +28,51 @@ mutation MyMutation($id: Int!) {
 const AddData=gql`
 mutation MyMutation2($object: passenger_insert_input = {}) {
     insert_passenger_one(object: $object){
-      nama
+      id
     }
   }
 `
 
 const GetDataById=gql`
-query MyQuery($id: Int!) {
+query MyQuery2($id: Int!) {
     passenger(where: {id: {_eq: $id}}) {
       id
+      nama
+      umur
     }
   }
 
 `
 
+const UpdateById=gql`
+mutation UpdateById($update: passenger_set_input = {}, $id: Int!) {
+    update_passenger(where: {id:{_eq: $id}}, _set: $update) {
+      returning {
+        id
+        nama
+        umur
+      }
+    }
+  }
+`
+
 function Home(){
     const [getData,{data, loading, error}]=useLazyQuery(GetAllPassenger);
-    const [seacrhDataById,{singleData, load, err}]=useLazyQuery(GetDataById);
+    const [searchDataById,{data:singleData, loading:load, error:err}]=useLazyQuery(GetDataById);
     const [deletePassenger] = useMutation(DeleteById, { refetchQueries: [GetAllPassenger] })
+    const [editPassenger] = useMutation(UpdateById, { refetchQueries: [GetAllPassenger] })
     const [AddNewData] = useMutation(AddData, { refetchQueries: [GetAllPassenger] })
-    //const [listPassenger, setListPassenger] = useState([]);
+    const [dataPassengerById, setDataPassengerById] =useState("")
 
     useEffect(() => {
         getData()
-        // setListPassenger(data?.passenger)
-        // console.log("useEffect runnig", listPassenger)
-    }, [])
+    },[data])
 
+    useEffect(() => {
+        if (!load) {
+            setDataPassengerById(singleData?.passenger)
+        }
+    }, [load, singleData])
     
     if (loading){
         return <Loader type="ThreeDots" height={100} width={100} />
@@ -64,6 +82,16 @@ function Home(){
         return null
     }
     
+        
+    if (load){
+        console.log("loading get single data")
+        return <Loader type="ThreeDots" height={100} width={100} />
+
+    }
+    if (err){
+        console.log("error : ",error)
+        return null
+    }
     const hapusPengunjung = (id) => {
         deletePassenger({
             variables:{
@@ -71,35 +99,45 @@ function Home(){
             }
         })
     }
+
+    const editPengunjung=(id,update)=>{
+        console.log("edit klik")
+        console.log(update)
+        editPassenger({
+            variables:{
+                id,
+                update
+            }
+        }
+        )
+
+    }
+
     const tambahPengunjung = newUser => {
-        const newData = {
-            id: uuidv4(),
-            ...newUser
-        }; 
+
         AddNewData({
             variables:{
-                newData
+                object:newUser
+                
             }
         })
     };
 
     const cariPengunjung=(id)=>{
-        seacrhDataById({
+        searchDataById({
             variables:{
                 id
             }
         })
-        return singleData
     }
-    console.log("listt: ", data?.passenger)
+
     return (
         <div>
             <Header/>
             {/* <h1>{ListPassenger}</h1> */}
-            {/* <p>{JSON.stringify(data?.passenger)}</p> */}
-            <GetPassengerBy cariPengunjung={cariPengunjung}/>
-            {loading ? <Loader type="ThreeDots" height={100} width={100} /> : <ListPassenger data={data?.passenger} hapusPengunjung={hapusPengunjung}/>
-            }
+            {/* <p>"data by search :",{JSON.stringify(singleData?.passenger)}</p> */}
+            <GetPassengerBy cariPengunjung={cariPengunjung} data={dataPassengerById} loading={load}/>
+            <ListPassenger data={data?.passenger} editPengunjung={editPengunjung} hapusPengunjung={hapusPengunjung}/>
             <PassengerInput
                 tambahPengunjung={tambahPengunjung}
             />
@@ -107,13 +145,5 @@ function Home(){
         )
 }
 
-// function Homee(){
-//     const {data, loading, error}=useQuery(GetAllPassenger)
-//     return(
-//         <div>
-//             <h1>{JSON.stringify(data)}</h1>
-//         </div>
-//     )
-// }
 
 export default Home
