@@ -3,9 +3,20 @@ import { v4 as uuidv4 } from "uuid";
 import PassengerInput from './PassengerInput';
 import ListPassenger from './ListPassenger';
 import Header from './Header';
-import {gql, useMutation, useLazyQuery} from "@apollo/client";
+import {gql, useMutation, useLazyQuery, useSubscription} from "@apollo/client";
 import Loader from "react-loader-spinner";
 import GetPassengerBy from "./GetPassengerBy";
+
+const SubscriptionData=gql`
+subscription MySubscription {
+    passenger {
+        id
+        jenisKelamin
+        nama
+        umur
+    }
+    }
+`
 
 const GetAllPassenger=gql`
 query MyQuery {
@@ -15,7 +26,7 @@ query MyQuery {
       jenisKelamin
       umur
     }
-  }`
+}`
 
 const DeleteById=gql`
 mutation MyMutation($id: Int!) {
@@ -57,16 +68,18 @@ mutation UpdateById($update: passenger_set_input = {}, $id: Int!) {
 `
 
 function Home(){
-    const [getData,{data, loading, error}]=useLazyQuery(GetAllPassenger);
+    const {data, loading, error}=useSubscription(SubscriptionData);
+    
+    //const [getData,{data, loading, error}]=useLazyQuery(GetAllPassenger);
     const [searchDataById,{data:singleData, loading:load, error:err}]=useLazyQuery(GetDataById);
-    const [deletePassenger] = useMutation(DeleteById, { refetchQueries: [GetAllPassenger] })
-    const [editPassenger] = useMutation(UpdateById, { refetchQueries: [GetAllPassenger] })
-    const [AddNewData] = useMutation(AddData, { refetchQueries: [GetAllPassenger] })
+    const [deletePassenger] = useMutation(DeleteById)
+    const [editPassenger] = useMutation(UpdateById)
+    const [AddNewData] = useMutation(AddData)
     const [dataPassengerById, setDataPassengerById] =useState("")
 
-    useEffect(() => {
-        getData()
-    },[data])
+    // useEffect(() => {
+    //     getData()
+    // },[data])
 
     useEffect(() => {
         if (!load) {
@@ -135,7 +148,7 @@ function Home(){
         <div>
             <Header/>
             {/* <h1>{ListPassenger}</h1> */}
-            {/* <p>"data by search :",{JSON.stringify(singleData?.passenger)}</p> */}
+            <p>"data by search :",{JSON.stringify(data?.passenger)}</p>
             <GetPassengerBy cariPengunjung={cariPengunjung} data={dataPassengerById} loading={load}/>
             <ListPassenger data={data?.passenger} editPengunjung={editPengunjung} hapusPengunjung={hapusPengunjung}/>
             <PassengerInput
