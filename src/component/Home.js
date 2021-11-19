@@ -148,7 +148,7 @@ function Home(){
         <div>
             <Header/>
             {/* <h1>{ListPassenger}</h1> */}
-            <p>"data by search :",{JSON.stringify(data?.passenger)}</p>
+            {/* <p>"data by search :",{JSON.stringify(data?.passenger)}</p> */}
             <GetPassengerBy cariPengunjung={cariPengunjung} data={dataPassengerById} loading={load}/>
             <ListPassenger data={data?.passenger} editPengunjung={editPengunjung} hapusPengunjung={hapusPengunjung}/>
             <PassengerInput
